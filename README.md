@@ -1,2 +1,2 @@
 # python
-初学python的文件
+初学python，写一些小工具
