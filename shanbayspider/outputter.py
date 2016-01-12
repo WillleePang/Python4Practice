@@ -19,7 +19,7 @@ class Outputter(object):
         for data in self.datas:
             fout.write("<tr>")
             fout.write("<td>%s</td>" % data['title'])
-            fout.write("<td><a href='http://www.shanbay.com%s'>%s</a></td>" % (data['url'], data['url']))
+            fout.write("<td><a target='_Blank' href='http://www.shanbay.com%s'>%s</a></td>" % (data['url'], data['url']))
             fout.write("</tr>")
         fout.write("</table>")
         fout.write("</body>")
