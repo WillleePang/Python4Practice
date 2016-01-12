@@ -1,37 +1,62 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
-from usefulutils.shanbayspider import urlManager, htmlDownloader, htmlParser, htmlOutputer
+from usefulutils.shanbayspider import urlmanager, downloader, parser, outputter
+import urllib.request
+from bs4 import BeautifulSoup
+import re
+import multiprocessing
 
 
+# 爬虫的主要控制器
 class SpiderMain(object):
     def __init__(self):
-        self.urls = urlManager.UrlManager()
-        self.downloader = htmlDownloader.Downloader()
-        self.parser = htmlParser.Parser()
-        self.outputer = htmlOutputer.Outputer()
+        # url管理器
+        self.urls = urlmanager.UrlManager()
+        # 下载器
+        self.downloader = downloader.Downloader()
+        # 解析器
+        self.parser = parser.Parser()
+        # 输出器
+        self.outputter = outputter.Outputter()
 
-    def craw(self, root_url):
-        count = 1
-        self.urls.add_new_url(root_url)
-        while self.urls.hasNewUrl():
+    # shanbay定向爬虫
+    def craw_shanbay(self, shanbay_url, regexp, file_name):
+        content = self.downloader.download(shanbay_url)
+        max_page = self.parser.shanbay_get_max_page(content)
+        for i in range(1, int(max_page) + 1):  #
             try:
-                new_url = self.urls.getNewUrl()
-                print('craw %d : %s' % (count, new_url))
-                content = self.downloader.download(new_url)
-                new_urls, new_data = self.parser.parse(new_url, content)
-                self.urls.addNewUrls(new_url)
-                self.outputer.collectData(new_data)
+                shanbay_new_url = self.urls.get_shanbay_url(shanbay_url, i)
+                content = self.downloader.download(shanbay_new_url)
+                cont_arr = self.parser.shanbay_parse(content, regexp)
+                self.outputter.shanbay_collect_data(cont_arr)
+                print('正在爬取shanbay网 no.%d page!' % i)
+            except Exception as err:
+                print(err)
+                print('爬取 failed!')
 
-                if count == 1000:
-                    break
-
-                count += 1
-            except:
-                print('craw failed!');
+        self.outputter.shanbay_output_html(file_name)
 
 
 if __name__ == "__main__":
-    root_url = ""
     spider = SpiderMain()
-    spider.craw(root_url)
+    shanbay_url = "http://www.shanbay.com/footprints/"
+    shanbay_regexp1 = r'地道表达法（第\d+期）'
+    name1 = r'地道表达法.htm'
+    shanbay_regexp2 = r'读新闻学英语'
+    name2 = r'读新闻学英语.htm'
+    shanbay_regexp3 = r'【TED推荐】'
+    name3 = r'TED推荐.htm'
+    shanbay_regexp4 = r'语法教室（第\d+期）'
+    name4 = r'语法教室.htm'
+    shanbay_regexp5 = r'词根讲解'
+    name5 = r'词根讲解.htm'
+    shanbay_regexp6 = r'扇贝精读文章'
+    name6 = r'扇贝精读文章.htm'
+    spider.craw_shanbay(shanbay_url, shanbay_regexp5, name5)
+
+    # test = '\n地道表达法（第107期）\n'
+    # if re.findall(r'地道表达法（第\d+期）', test):
+    #     print('ok')
+    # else:
+    #     print('failed')
