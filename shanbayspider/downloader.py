@@ -1,6 +1,15 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
+import urllib.request
+
 
 class Downloader(object):
-    pass
+    # 下载函数
+    def download(self, url):
+        if url is None:
+            return None
+        response = urllib.request.urlopen(url)
+        if response.getcode() != 200:
+            return None
+        return response.read()
