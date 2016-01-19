@@ -1,0 +1,10 @@
+wesc console Jun 20 20:33
+wesc pts/9 Jun 22 01:38(192.168.0.6)
+wesc pts/1 Jun 20 20:33(:0.0)
+wesc pts/2 Jun 20 20:33(:0.0)
+wesc pts/4 Jun 20 20:33(:0.0)
+wesc pts/3 Jun 20 20:33(:0.0)
+wesc pts/5 Jun 20 20:33(:0.0)
+wesc pts/6 Jun 20 20:33(:0.0)
+wesc pts/7 Jun 20 20:33(:0.0)
+wesc pts/8 Jun 20 20:33(:0.0)

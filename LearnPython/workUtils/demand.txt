@@ -1,0 +1,2 @@
+1. find all files's name in a file path and export to a txt file
+2. delete all files with some extension name in a file path

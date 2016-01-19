@@ -1,0 +1,19 @@
+account log:
+ignored: could not convert string to float: % cat carddata.txt
+
+ignored: could not convert string to float: # carddata.txt preivous balance
+
+data...process 25.0
+ignored: could not convert string to float: debits
+
+data...process 21.64
+data...process 541.24
+data...process 25.0
+ignored: could not convert string to float: credits
+
+data...process -25.0
+data...process -541.24
+ignored: could not convert string to float: finance charge/late fees
+
+data...process 7.3
+data...process 5.0
