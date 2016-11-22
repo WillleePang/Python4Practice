@@ -34,7 +34,7 @@ for log_file in glob.glob("LogStat_*.log"):
         os.system(
             '''cat ''' + log_file + ''' | grep '^2016-*' | awk -F "," '{OFS=","; if($11 == ''' + channel + ''') print $1,$3,$5,$11}' >> templog.txt''')
 print 'analyze log file complete!'
-
+# cat LogStat_2016-11-15* |grep -i register| awk -F"," '{OFS=",";if($11 == 12103) print $1,$3,$5,$11}'
 print 'generating templog_level.txt!'
 os.system('''cat templog.txt | awk '!a[$2,$3]++{print $1,$2,$3,$4}' > templog_level.txt''')
 print 'generate templog_level.txt complete!'
